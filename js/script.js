@@ -38,6 +38,17 @@ $(document).ready(function() {
         return sumArray(arr) / arr.length;
     }
 
+    function stdArray(arr) {
+        var avg = avgArray(arr);
+        var std = 0;
+        arr.forEach(function(x) {
+            std += Math.pow(x - avg, 2);
+        });
+
+        std = std / (arr.length - 1);
+        return Math.sqrt(std);
+    }
+
     $.when(getData()).done(function(resp) {
         // delimited by newlines;
         // first line is headers
@@ -52,26 +63,34 @@ $(document).ready(function() {
                 penicilin: Number(contents[1]),
                 streptomycin: Number(contents[2]),
                 neomycin: Number(contents[3]),
-                gram: contents[4] == "positive"
+                gram: contents[4].charAt(0) === 'p'
             });
         });
 
-        var data_a = [{
-            type: 'scatter',
-            mode: 'markers',
-            x: pullSubset(bacteria, 'streptomycin'),
-            y: pullSubset(bacteria, 'neomycin')
-        }];
+        console.log(bacteria);
+
+        var data_a = [];
+        var trace_types = ['streptomycin', 'neomycin'];
+        trace_types.forEach(function(type) {
+            data_a.push({
+                x: pullSubset(bacteria, 'penicilin'),
+                y: pullSubset(bacteria, type),
+                name: type,
+                type: 'scatter',
+                mode: 'markers'
+            });
+        });
 
         var layout_a = {
-            title: "title",
+            title: "Antibiotic Potency Relative to Penicilin",
             xaxis: {
-                title: "x-axis",
+                title: "Penicilin MIC (log scale)",
                 type: "log",
                 autorange: true
             },
             yaxis: {
-                title: "y-axis",
+                title: "Streptomycin or neomycin MIC (log scale)",
+                type: "log",
                 autorange: true
             }
         };
@@ -79,30 +98,39 @@ $(document).ready(function() {
         var data_b = [];
         var antibiotics = ['penicilin', 'streptomycin', 'neomycin'];
         antibiotics.forEach(function(antibiotic) {
+            var set_a = pullSubsetGram(bacteria, antibiotic, false);
+            var set_b = pullSubsetGram(bacteria, antibiotic, true);
+
             data_b.push({
                 x: ['negative', 'positive'],
-                y: [avgArray(pullSubsetGram(bacteria, antibiotic, false)), avgArray(pullSubsetGram(bacteria, antibiotic, true))],
+                y: [avgArray(set_a), avgArray(set_b)],
+                //error_y: {
+                //    type: 'data',
+                //    array: [stdArray(set_a), stdArray(set_b)],
+                //    visible: true
+                //},
                 name: antibiotic,
                 type: 'bar'
             });
         });
 
         var layout_b = {
-            title: "title",
+            title: "Potency of Antibiotics versus Gram Staining",
             barmode: "group",
             xaxis: {
-                title: "x-axis"
+                title: "Gram stain result"
             },
             yaxis: {
                 type: "log",
                 autorange: true,
-                title: "y-axis"
+                title: "Minimum Inhibitory Concentration (log scale)"
             }
         };
 
 
         Plotly.newPlot('viz-a', data_a, layout_a, {staticPlot: true});
         Plotly.newPlot('viz-b', data_b, layout_b, {staticPlot: true});
+        //Plotly.newPlot('viz-c', data_c, layout_c, {staticPlot: true});
 
     });
 });
