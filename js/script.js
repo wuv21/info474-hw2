@@ -115,7 +115,7 @@ $(document).ready(function() {
         });
 
         var layout_b = {
-            title: "Potency of Antibiotics versus Gram Staining",
+            title: "Average Potency of Antibiotics versus Gram Staining",
             barmode: "group",
             xaxis: {
                 title: "Gram stain result"
@@ -123,7 +123,7 @@ $(document).ready(function() {
             yaxis: {
                 type: "log",
                 autorange: true,
-                title: "Minimum Inhibitory Concentration (log scale)"
+                title: "Average Minimum Inhibitory Concentration (log scale)"
             }
         };
 

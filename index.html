@@ -13,33 +13,49 @@
     <div class="jumbotron">
         <div class="container">
             <h1>Antibiotic Visualizations</h1>
+
             <p>INFO474 Homework 2 | By Vincent Wu</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias blanditiis, cupiditate delectus dolorem ducimus facilis impedit magni, minima necessitatibus neque quia quod reiciendis sed soluta vel veritatis vero vitae?</p>
+            <p>Curious about antibiotics? If so, check out the visualizations:
+                <a href="#viz-1" class="btn btn-default">1</a>
+                <a href="#viz-2" class="btn btn-default">2</a>
+                <a href="#viz-3" class="btn btn-default">3</a>
+            </p>
         </div>
     </div>
 
     <div class="container">
-        <div class="viz">
+        <div class="viz" id="viz-1">
             <h2>Visualization #1</h2>
             <div id="viz-a"></div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias blanditiis, cupiditate delectus dolorem ducimus facilis impedit magni, minima necessitatibus neque quia quod reiciendis sed soluta vel veritatis vero vitae? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet error libero magnam quaerat? Aliquid asperiores at autem deserunt, ea, eligendi ex, iure laborum magni mollitia nisi officia omnis veritatis vero! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda cum cumque deleniti doloremque, dolores exercitationem illum ipsa ipsam ipsum laboriosam mollitia odit perspiciatis possimus, quasi, repudiandae rerum temporibus tenetur voluptatem.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias blanditiis, cupiditate delectus dolorem ducimus facilis impedit magni, minima necessitatibus neque quia quod reiciendis sed soluta vel veritatis vero vitae? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet error libero magnam quaerat? Aliquid asperiores at autem deserunt, ea, eligendi ex, iure laborum magni mollitia nisi officia omnis veritatis vero! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda cum cumque deleniti doloremque, dolores exercitationem illum ipsa ipsam ipsum laboriosam mollitia odit perspiciatis possimus, quasi, repudiandae rerum temporibus tenetur voluptatem.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias blanditiis, cupiditate delectus dolorem ducimus facilis impedit magni, minima necessitatibus neque quia quod reiciendis sed soluta vel veritatis vero vitae?</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias blanditiis, cupiditate delectus dolorem ducimus facilis impedit magni, minima necessitatibus neque quia quod reiciendis sed soluta vel veritatis vero vitae?</p>
         </div>
 
 
-        <div class="viz">
+        <div class="viz" id="viz-2">
             <h2>Visualization #2</h2>
-            <div id="viz-b"></div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio ducimus eaque eum harum ipsa ipsum
-                iusto labore natus neque quos rem repellat sed vel voluptas, voluptate. Accusantium laboriosam odio
-                quisquam?</p>
+            <div class="row">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-8">
+                    <div id="viz-b"></div>
+                </div>
+            </div>
+
+            <p>This visualization was the most suitable to answer the question of - what is the relationship between gram staining and the potency of the various antibiotics (penicilin, streptomycin, and neomycin) given in the data set. Since there are two categories of gram staining results (negative or positive) and three antibiotics that could be in each category, it made sense to use a bar chart. As discussed in class, I could either represent the different antibiotics by using a grouped or a divided bar chart. I chose the grouped bar chart because it utilizes the elementary perceptual task of position along a common scale, rather than the task of length. The perception of position enhances the user's ability to decode quantitative information - which is inherently important in answering the above question - from the visualization. The data to produce this graph was done by (1) sorting the species into gram staining groups and then (2) averaging the MIC value to each antibiotic within each group.</p>
+            <p>On the topic of position along a common scale, this scale is the vertical axis. I initially had drawn the graphic without transforming the data. This was a mistake because the range of possible MIC values were big especially for penicilin values. This caused the scale to be stretched out to the extent where the values near the bottom of the scale were hard to distinguish using the elementary task of position. As a result, I plotted the values on a logarithmic scale in order to address the large variance of MIC values. The positions of the top of the bars are now easier to align amongst the scale and for the reader to determine quantitative values.</p>
+            <p>As for delimiting between the different antibiotics, I used color with labels to communicate the differences. For instance, blue represents penicilin in both the negative and positive groups on the x-axis. This is preferable to using different shading or shapes since there are only three antibiotics and the colors add a more appealing facade to the visual. There are grey horizontal lines that mark key values on the y-axis which correspond to the major numbers (0.1, 1, 10, 100). The major numbers are also bold since the scale on the y-axis is log 10 based - which must be clear to the reader to avoid confusion with a linear scale. The size of the chart spans 8 columns of a Bootstrap container to minimize the distance between the two groups for better comparison.</p>
         </div>
 
-        <div class="viz">
+        <div class="viz" id="viz-3">
             <h2>Visualization #3</h2>
             <div id="viz-c"></div>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate eaque quam quasi sit? Aut dolore incidunt possimus quam. Ab amet architecto, consequuntur culpa dolorum maxime perspiciatis saepe totam voluptate? Doloremque!</p>
         </div>
+    </div>
+
+    <div class="container">
+        <h2>Credits</h2>
+        <p>Thanks to Google Fonts for the fonts, Bootstrap for responsive CSS, and Plotly.js for the plotting library.</p>
     </div>
 
     <!--jQuery-->
