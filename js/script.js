@@ -127,10 +127,34 @@ $(document).ready(function() {
             }
         };
 
+        var data_c = [{
+            x: pullSubset(bacteria, 'penicilin'),
+            y: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            // name: 'a',
+            type: 'scatter',
+            mode: 'markers'
+        }];
+
+        var layout_c = {
+            title: "Viz 3",
+            xaxis: {
+                title: "viz 3",
+                type: "log",
+                autorange: true
+            },
+            yaxis: {
+                title: "blah",
+                showgrid: false,
+                zeroline: false
+                // type: "log",
+                // autorange: true
+            }
+        };
+
 
         Plotly.newPlot('viz-a', data_a, layout_a, {staticPlot: true});
         Plotly.newPlot('viz-b', data_b, layout_b, {staticPlot: true});
-        //Plotly.newPlot('viz-c', data_c, layout_c, {staticPlot: true});
+        Plotly.newPlot('viz-c', data_c, layout_c, {staticPlot: true});
 
     });
 });
