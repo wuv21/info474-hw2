@@ -6,6 +6,7 @@ $(document).ready(function() {
         return $.ajax('data/antibiotics_data.csv');
     }
 
+    // Returns an array of a given, specific property from each object in a given array.
     function pullSubset(data, col) {
         var sub = [];
         data.forEach(function(x) {
@@ -15,6 +16,7 @@ $(document).ready(function() {
         return sub;
     }
 
+    // Returns an array of a given, specific property from each object in a given array given gram staining status
     function pullSubsetGram(data, col, gram) {
         var sub = [];
         data.forEach(function(x) {
@@ -26,6 +28,7 @@ $(document).ready(function() {
         return sub;
     }
 
+    // Returns the sum of a given array
     function sumArray(arr) {
         var sum = arr.reduce(function(a, b) {
             return a + b;
@@ -34,10 +37,12 @@ $(document).ready(function() {
         return sum;
     }
 
+    // Returns the average of a given array
     function avgArray(arr) {
         return sumArray(arr) / arr.length;
     }
 
+    // Returns the standard deviation of a given array
     function stdArray(arr) {
         var avg = avgArray(arr);
         var std = 0;
@@ -49,6 +54,7 @@ $(document).ready(function() {
         return Math.sqrt(std);
     }
 
+    // main code to retrieve data and create visualizations
     $.when(getData()).done(function(resp) {
         // delimited by newlines;
         // first line is headers
@@ -67,8 +73,8 @@ $(document).ready(function() {
             });
         });
 
-        console.log(bacteria);
-
+        // Visualization #1
+        // getting the data and setting properties
         var data_a = [];
         var trace_types = ['streptomycin', 'neomycin'];
         trace_types.forEach(function(type) {
@@ -81,6 +87,7 @@ $(document).ready(function() {
             });
         });
 
+        // layout settings for visualization #1
         var layout_a = {
             title: "Antibiotic Potency Relative to Penicillin",
             xaxis: {
@@ -95,6 +102,8 @@ $(document).ready(function() {
             }
         };
 
+        // Visualization #2
+        // getting the data and setting properties
         var data_b = [];
         var antibiotics = ['penicillin', 'streptomycin', 'neomycin'];
         antibiotics.forEach(function(antibiotic) {
@@ -114,6 +123,7 @@ $(document).ready(function() {
             });
         });
 
+        // layout settings for visualization #2
         var layout_b = {
             title: "Average Potency of Antibiotics versus Gram Staining",
             barmode: "group",
@@ -127,6 +137,8 @@ $(document).ready(function() {
             }
         };
 
+        // Visualization #3
+        // getting the data and setting properties
         var data_c = [];
         bacteria.forEach(function(b) {
             if (b.penicillin >= 800) {
@@ -140,6 +152,7 @@ $(document).ready(function() {
             }
         });
 
+        // layout settings for visualization #3
         var layout_c = {
             title: "Effectiveness of Other Antibiotics for Species with More Resistance to Penicillin",
             xaxis: {
@@ -152,7 +165,7 @@ $(document).ready(function() {
             }
         };
 
-
+        // Initialize all visualizations
         Plotly.newPlot('viz-a', data_a, layout_a, {staticPlot: true});
         Plotly.newPlot('viz-b', data_b, layout_b, {staticPlot: true});
         Plotly.newPlot('viz-c', data_c, layout_c, {staticPlot: true});

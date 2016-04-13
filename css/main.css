@@ -17,6 +17,10 @@ h1 {
     font-size: 44px;
 }
 
+.viz {
+    padding-bottom: 1em;
+}
+
 .viz h2 {
     color: #3E606F;
 }
