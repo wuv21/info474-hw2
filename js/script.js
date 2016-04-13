@@ -60,7 +60,7 @@ $(document).ready(function() {
             var contents = row.split(',');
             bacteria.push({
                 species: contents[0],
-                penicilin: Number(contents[1]),
+                penicillin: Number(contents[1]),
                 streptomycin: Number(contents[2]),
                 neomycin: Number(contents[3]),
                 gram: contents[4].charAt(0) === 'p'
@@ -73,7 +73,7 @@ $(document).ready(function() {
         var trace_types = ['streptomycin', 'neomycin'];
         trace_types.forEach(function(type) {
             data_a.push({
-                x: pullSubset(bacteria, 'penicilin'),
+                x: pullSubset(bacteria, 'penicillin'),
                 y: pullSubset(bacteria, type),
                 name: type,
                 type: 'scatter',
@@ -82,9 +82,9 @@ $(document).ready(function() {
         });
 
         var layout_a = {
-            title: "Antibiotic Potency Relative to Penicilin",
+            title: "Antibiotic Potency Relative to Penicillin",
             xaxis: {
-                title: "Penicilin MIC (log scale)",
+                title: "Penicillin MIC (log scale)",
                 type: "log",
                 autorange: true
             },
@@ -96,7 +96,7 @@ $(document).ready(function() {
         };
 
         var data_b = [];
-        var antibiotics = ['penicilin', 'streptomycin', 'neomycin'];
+        var antibiotics = ['penicillin', 'streptomycin', 'neomycin'];
         antibiotics.forEach(function(antibiotic) {
             var set_a = pullSubsetGram(bacteria, antibiotic, false);
             var set_b = pullSubsetGram(bacteria, antibiotic, true);
@@ -127,27 +127,28 @@ $(document).ready(function() {
             }
         };
 
-        var data_c = [{
-            x: pullSubset(bacteria, 'penicilin'),
-            y: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-            // name: 'a',
-            type: 'scatter',
-            mode: 'markers'
-        }];
+        var data_c = [];
+        bacteria.forEach(function(b) {
+            if (b.penicillin >= 800) {
+                data_c.push({
+                    x: antibiotics,
+                    y: [b.penicillin, b.streptomycin, b.neomycin],
+                    name: b.species,
+                    type: 'scatter',
+                    mode: 'lines+markers'
+                });
+            }
+        });
 
         var layout_c = {
-            title: "Viz 3",
+            title: "Effectiveness of Other Antibiotics for Species with More Resistance to Penicillin",
             xaxis: {
-                title: "viz 3",
-                type: "log",
-                autorange: true
+                title: "Antibiotics"
             },
             yaxis: {
-                title: "blah",
-                showgrid: false,
-                zeroline: false
-                // type: "log",
-                // autorange: true
+                title: "MIC (log scale)",
+                type: "log",
+                autorange: true
             }
         };
 
